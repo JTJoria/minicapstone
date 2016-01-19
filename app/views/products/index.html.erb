@@ -1,0 +1,15 @@
+<h1>For Sale</h1>
+
+<%= link_to "Add a new product", "/products/new" %>
+
+<% @products.each do |product| %>
+  
+  <h2><a href="/products/<%= product.id %>"><%= product.name %></a></h2>
+  <h3><%= product.price %></h3>
+  <img src="<%= product.image %>" >
+  <h3><%= product.description %></h3>
+  <button type="button">Buy It Now!</button>
+
+  <hr>
+
+<% end %>

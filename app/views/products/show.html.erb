@@ -1,0 +1,10 @@
+<h1>You have selected:</h1>
+
+<h1><%= @product.name %></h1>
+<h2><%= @product.price %></h2>
+<img src="<%= @product.image %>" >
+<h2><%= @product.description %></h2>
+
+  <%= link_to "Home", "/products" %>
+  <%= link_to "Edit", "/products/#{@product.id}/edit" %>
+  <%= link_to "Delete", "/products/#{@product.id}", method: :delete, data:{confirm: "Are You Sure?"} %>
