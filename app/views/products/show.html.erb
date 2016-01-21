@@ -1,7 +1,11 @@
 <h1>You have selected:</h1>
 
 <h1><%= @product.name %></h1>
-<h2><%= @product.price %></h2>
+<h2><%= @product.sale_message %></h2>
+<h2> Price: $<%= @product.price %></h2>
+<h3> Tax: $<%= @product.sales_tax %></h3>
+<hr>
+<h3>Total: $<%= @product.total %></h3>
 <img src="<%= @product.image %>" >
 <h2><%= @product.description %></h2>
 
