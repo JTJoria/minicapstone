@@ -6,6 +6,21 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.all
+      if params[:sort]
+        @products = Product.order(:price)
+      end
+      if params[:most]
+        @products = Product.order(price: :desc)
+      end
+
+      # if params[:sort] && params[:most]
+      #   @products = Product.order(params[:sort] => params[:most])
+      # end
+
+      if params[:discount]
+        @products = Product.where("price<?", 2)
+      end
+
   end
 
    def show
@@ -41,6 +56,19 @@ class ProductsController < ApplicationController
 
     flash[:warning] = "Item Gone!"
     redirect_to "/products@bn"
+  end
+
+
+  def random
+    @product = Product.all.sample
+
+    render :show
+  end
+
+  def search
+    @products = Product.where('name LIKE ? OR description LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%")
+
+    render :index
   end
 
 end
