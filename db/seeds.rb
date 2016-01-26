@@ -13,3 +13,4 @@ Product.create!([
   {name: "Mango", price: "5.0", image: "http://www.freshtexproduce.com/products/mango-lg2.jpg", description: "Great in smoothies"},
   {name: "Peaches", price: "2.5", image: "http://freshmadisonmarket.com/sites/madison/files/uploads/blog/2015/08/MI-Peaches.jpg", description: "We have millions of peaches for you"}
 ])
+  
