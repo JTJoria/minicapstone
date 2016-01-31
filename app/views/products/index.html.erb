@@ -7,9 +7,9 @@
         <h2><a href="/products/<%= product.id %>"><%= product.name %></a></h2>
         <h2><%= product.sale_message %></h2>
         <h3>Price: $<%= product.price %></h3>
+        <a href="/products/<%= product.id %>" title="View Product"><img src="<%= product.get_first_image %>"
         <h3>Tax: $<%= product.sales_tax %></h3>
         <h3><%= product.description %></h3>
-        <button type="button">Buy It Now!</button>
       </div>
     </div>  
   <% end %>

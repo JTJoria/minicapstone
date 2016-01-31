@@ -1,0 +1,8 @@
+<h1>All Suppliers</h1>
+
+<% @suppliers.each do |supplier| %>
+  <h2>Name: <%= supplier.name %></h2>
+  <h2>Email: <%= supplier.email %></h2>
+  <h2>Phone: <%= supplier.phone %></h2>
+  <hr>
+<% end %>

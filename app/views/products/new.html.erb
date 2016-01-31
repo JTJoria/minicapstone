@@ -16,6 +16,8 @@
     <%= text_field_tag :image %>
   </div>
 
+  <%= collection_select :supplier, :supplier_id, Supplier.all, :id, :name %>
+
   <div>
     <%=label_tag :description %>
     <%= text_field_tag :desciption %>

@@ -6,9 +6,33 @@
 <h3> Tax: $<%= @product.sales_tax %></h3>
 <hr>
 <h3>Total: $<%= @product.total %></h3>
-<h2><%= @product.description %></h2>
+<p>Images: </p>
+<% @product.images.each do |image| %>
+  <img src="<%= image.url %>" class="img-responsive">
+<% end %>
+<h2><%= @product.description %></h2>     
+
+
+
+<%= form_tag "/orders", method: :post do %>
+<div class="form-group">
+  <%= label_tag :quantity %>
+  <%= text_field_tag :quantity %>
+</div>
+<div class="form-group">
+  <%= hidden_field_tag :product_id, @product.id %>
+</div>
+  <%= submit_tag "Buy Now!" %>
+<% end %> 
+        
 <h3>Supplied by: <%=@supplier.name %></h3>
 
+<h3>Categories: </h3>
+<h3><% @product.categories.each do |category| %>
+  <%= category.name %>
+<% end %> </h3>
+
+  
   <%= link_to "Home", "/products" %>
   <%= link_to "Edit", "/products/#{@product.id}/edit" %>
   <%= link_to "Delete", "/products/#{@product.id}", method: :delete, data:{confirm: "Are You Sure?"} %>

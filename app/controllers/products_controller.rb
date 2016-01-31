@@ -21,19 +21,25 @@ class ProductsController < ApplicationController
         @products = Product.where("price<?", 2)
       end
 
+      if params[:category]
+        @products = Category.find_by(name: params[:category]).products
+      end
+
   end
 
    def show
     @product = Product.find_by(id: params[:id])
-    @supplier = Supplier.find_by(id: params[:id])
+    @supplier = Supplier.find_by(id: @product.supplier_id)
   end
 
   def new
   end
 
   def create 
-    @product = Product.create({name: params[:name], price: params[:price], supplier_id: params[:supplier][:supplier_id], image: params[:image], description: params[:description]})
+    @product = Product.create({name: params[:name], price: params[:price], supplier_id: params[:supplier][:supplier_id], description: params[:description]})
 
+    Image.create(url: params[:image], product_id: @product.id) if params[:image] != ""
+    
     flash[:success]= "New Product Created"
     redirect_to '/products'
   end
@@ -45,7 +51,10 @@ class ProductsController < ApplicationController
   def update
     @product = Product.find_by(id: params[:id])
 
-    @product.update({name: params[:name], price: params[:price], image: params[:image], description: params[:description]})
+    @product.update({name: params[:name], price: params[:price], description: params[:description]})
+
+    Image.create(url: params[:image], product_id: @product.id) if params[:image] != ""
+
     flash[:success] = "Producted Update!"
     redirect_to "/products/#{@product.id}"
 

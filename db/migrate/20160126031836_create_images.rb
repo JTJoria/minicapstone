@@ -5,7 +5,7 @@ class CreateImages < ActiveRecord::Migration
   def change
     create_table :images do |t|
       t.string :url
-      t.integer :integer
+      
 
       t.timestamps null: true
     end
