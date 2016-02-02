@@ -14,7 +14,7 @@
 
 
 
-<%= form_tag "/orders", method: :post do %>
+<%= form_tag "/carted_product", method: :post do %>
 <div class="form-group">
   <%= label_tag :quantity %>
   <%= text_field_tag :quantity %>
@@ -22,7 +22,7 @@
 <div class="form-group">
   <%= hidden_field_tag :product_id, @product.id %>
 </div>
-  <%= submit_tag "Buy Now!" %>
+  <%= submit_tag "Add To Cart!" %>
 <% end %> 
         
 <h3>Supplied by: <%=@supplier.name %></h3>
