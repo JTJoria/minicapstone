@@ -1,7 +1,6 @@
 <h1>You have selected:</h1>
 
 <h1><%= @product.name %></h1>
-<h2><%= @product.sale_message %></h2>
 <h2> Price: $<%= @product.price %></h2>
 <h3> Tax: $<%= @product.sales_tax %></h3>
 <hr>
@@ -14,7 +13,7 @@
 
 
 
-<%= form_tag "/carted_product", method: :post do %>
+<%= form_tag "/carted_products", method: :post do %>
 <div class="form-group">
   <%= label_tag :quantity %>
   <%= text_field_tag :quantity %>

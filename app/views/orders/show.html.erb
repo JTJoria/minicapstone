@@ -2,9 +2,10 @@
 <h1>Your Order: </h1>
 
 <h2>Order ID: <%= @order.id %></h2>
-<h2>Quantity: <%= @order.quantity %></h2>
 <h3>Subtotal: <%= number_to_currency(@order.subtotal) %></h3>
 <h3>Tax: <%= number_to_currency(@order.tax) %></h3>
 <h3>Total: <%= number_to_currency(@order.total) %></h3>
-
-<%= image_tag @order.product.images.first.url %>
+<hr>
+<% @order.carted_products do |carted_product| %>
+  <h4> <%= carted_product.product.name %> - Qty: <%= carted_product.quantity%></h4>
+<% end %>
