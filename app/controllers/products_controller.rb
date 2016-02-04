@@ -5,6 +5,8 @@ class ProductsController < ApplicationController
   # end
 
   def index
+    cart_count
+
     @products = Product.all
       if params[:sort]
         @products = Product.order(:price)
