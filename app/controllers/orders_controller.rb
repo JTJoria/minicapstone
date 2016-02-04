@@ -19,6 +19,7 @@ class OrdersController < ApplicationController
       carted_product.update(order_id: order.id, status: "Purchased")
     end
 
+    flash[:success] = "Your order is complete"
     redirect_to "/orders/#{order.id}"
   end
 
