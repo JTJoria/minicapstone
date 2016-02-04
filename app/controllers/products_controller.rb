@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
   # end
 
   before_action :authenticate_admin!, only: [:new, :create, :edit, :update, :destroy]
-  # before_action :authenticate_admin!, except: [:index, :show, :random, :search]
+  # OR before_action :authenticate_admin!, except: [:index, :show, :random, :search]
 
   def index
     cart_count
@@ -38,17 +38,21 @@ class ProductsController < ApplicationController
   end
 
   def new
+    @taco = Product.new
   end
 
   def create 
-    
-    
-    @product = Product.create({name: params[:name], price: params[:price], supplier_id: params[:supplier][:supplier_id], description: params[:description]})
+     
+    @product = Product.new({name: params[:name], price: params[:price], supplier_id: params[:supplier][:supplier_id], description: params[:description]})
 
-    Image.create(url: params[:image], product_id: @product.id) if params[:image] != ""
-    
-    flash[:success]= "New Product Created"
-    redirect_to '/products'
+    if @product.save
+      Image.create(url: params[:image], product_id: @product.id) if params[:image] != ""
+
+      flash[:success]= "New Product Created"
+      redirect_to '/products'
+    else
+      render :new
+    end
   end
 
   def edit
@@ -68,11 +72,11 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    @product = Product.find_by(id: params[:id])
-    @product.destroy
+      @product = Product.find_by(id: params[:id])
+      @product.destroy
 
-    flash[:warning] = "Item Gone!"
-    redirect_to "/products@bn"
+      flash[:warning] = "Item Gone!"
+      redirect_to "/products@bn"
   end
 
 

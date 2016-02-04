@@ -1,36 +1,38 @@
 class SuppliersController < ApplicationController
 
-def index
-  @suppliers = Suppliers.new
-end
+  before_action :authenticate_admin!, except: [:index]
 
-def new
+  def index
+    @suppliers = Suppliers.new
+  end
 
-end
+  def new
 
-def create
-  @supplier = Supplier.create({name: params[:name], email: params[:email], phone: params[:phone]})
-  redirect_to "/suppliers/#{@supplier.id}"
-end
+  end
 
-def show
-  @supplier = Supplier.find(params[:id])
-end
+  def create
+    @supplier = Supplier.create({name: params[:name], email: params[:email], phone: params[:phone]})
+    redirect_to "/suppliers/#{@supplier.id}"
+  end
 
-def edit
-  @supplier = Supplier.find(params[:id])
-end
+  def show
+    @supplier = Supplier.find(params[:id])
+  end
 
-def update
-  @supplier = Supplier.find(params[:id])
-  @supplier.update({name: params[:name], email: params[:email], phone: params[:phone]})
-  redirect_to "/suppliers/#{@supplier.id}"
-end
+  def edit
+    @supplier = Supplier.find(params[:id])
+  end
 
-def destroy
-  supplier = Supplier.find(params[:id])
-  supplier.destroy
-  redirect_to "/products"
-end
+  def update
+    @supplier = Supplier.find(params[:id])
+    @supplier.update({name: params[:name], email: params[:email], phone: params[:phone]})
+    redirect_to "/suppliers/#{@supplier.id}"
+  end
 
-end
+  def destroy
+    supplier = Supplier.find(params[:id])
+    supplier.destroy
+    redirect_to "/products"
+  end
+
+  end
