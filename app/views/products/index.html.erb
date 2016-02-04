@@ -4,7 +4,7 @@
 <% @products.each do |product| %>
   <div class="col-md-4 col-sm-6 list-view">
       <div class = "thumbnail">
-        <h2><a href="/products/<%= product.id %>"<%= product.name %></a></h2>
+        <h2><a href="/products/<%= product.id %>"><%= product.name %></a></h2>
         <h2><%= product.sale_message %></h2>
         <h3>Price: $<%= product.price %></h3>
         <a href= "/products/<%= product.id %>"></a> View Product <img src="<%= product.get_first_image %>">

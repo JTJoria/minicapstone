@@ -3,21 +3,13 @@ class OrdersController < ApplicationController
   def create
     carted_products = CartedProduct.where(status: "Carted", user_id: current_user.id)
 
-    subtotal = 0
-
-    carted_products.each do |carted_product|
-      subtotal += carted_product.product.price * carted_product.quantity
-    end
-
-    tax = subtotal * 0.09
-
-    total = subtotal + tax
-
-    order = Order.create(user_id: current_user.id, subtotal: subtotal, tax: tax, total: total)
+    order = Order.create(user_id: current_user.id)
 
     carted_products.each do |carted_product|
       carted_product.update(order_id: order.id, status: "Purchased")
     end
+
+    order.calculate_totals
 
     flash[:success] = "Your order is complete"
     redirect_to "/orders/#{order.id}"
