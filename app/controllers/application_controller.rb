@@ -8,7 +8,15 @@ class ApplicationController < ActionController::Base
   private
 
   def cart_count
-    @cart_count = current_user.carted_products.where(status: "Carted").count
+    if current_user
+      @cart_count = current_user.carted_products.where(status: "Carted").count
+    else 
+      @cart_count = 0
+    end
+  end
+
+  def authenticate_admin!
+      redirect_to "/" unless current_user && current_user.admin
   end
 
 end

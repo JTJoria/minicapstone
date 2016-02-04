@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +24,11 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="/products/new">Add New Item <span class="sr-only">(current)</span></a></li>
+          
+          <% if user_signed_in? && current_user.admin %>
+            <li class="active"><a href="/products/new">Add New Item <span class="sr-only">(current)</span></a></li>
+          <% end %>
+
           <li><a href="/products?sort=price">Best Deal</a></li>
           <li><a href="/products?most=price">Most Expensive</a></li>
           <li><a href="/products?discount=price">Discount Items!</a></li>
