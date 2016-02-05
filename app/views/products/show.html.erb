@@ -33,7 +33,7 @@
 
   
   <%= link_to "Home", "/products" %>
-  <%= if current_user && current_user.admin %>
+  <% if current_user && current_user.admin %>
     <%= link_to "Edit", "/products/#{@product.id}/edit" %>
     <%= link_to "Delete", "/products/#{@product.id}", method: :delete, data:{confirm: "Are You Sure?"} %>
   <% end %>

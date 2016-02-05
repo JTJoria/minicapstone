@@ -1,19 +1,5 @@
 class Product < ActiveRecord::Base
 
-  # validates :price, presence: true
-  # validates :price, numericality: true
-  # validates :price, greater_than_or_equal_to: %{0.01}
-  # validates :name, format: { with: /\A[a-zA-Z]+\z/,
-  #   message: "only allows letters" }
-  # validates :name, 
-  # validates :name, presence: true
-  # validates :name, uniqueness: true
-  # validates :name, length: { minimum: 3 }
-  # validates :name, length: { maximum: 20 }
-  # validates :supplier_id, presence: true
-  # validates :supplier_id, numericality: true { only_integer: true }
-
-
   belongs_to :supplier
   has_many :images
 
@@ -22,6 +8,11 @@ class Product < ActiveRecord::Base
   
   has_many :carted_products
   has_many :orders, through: :carted_products
+
+  validates :name, :price, :description, presence: true
+  validates :name, uniqueness: true
+  validates :price, numericality: true
+
 
   def sale_message
     if price.to_f < 2

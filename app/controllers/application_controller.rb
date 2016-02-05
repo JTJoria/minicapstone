@@ -8,10 +8,13 @@ class ApplicationController < ActionController::Base
   private
 
   def cart_count
-    if current_user
-      @cart_count = current_user.carted_products.where(status: "Carted").count
-    else 
-      @cart_count = 0
+    if user_signed_in?
+        if session[:cart_count]
+          @cart_count = session[:cart_count]
+        else
+          @cart_count = current_user.carted_products.where(status: "Carted").count
+          session[:cart_count] = @cart_count
+        end
     end
   end
 

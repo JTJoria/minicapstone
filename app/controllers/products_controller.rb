@@ -34,22 +34,33 @@ class ProductsController < ApplicationController
 
    def show
     @product = Product.find_by(id: params[:id])
+    @carted_product = CartedProduct.new unless
     @supplier = Supplier.find_by(id: @product.supplier_id)
   end
 
   def new
-    @taco = Product.new
+    @product = Product.new
+    @image = Image.new
   end
 
   def create 
      
     @product = Product.new({name: params[:name], price: params[:price], supplier_id: params[:supplier][:supplier_id], description: params[:description]})
 
-    if @product.save
-      Image.create(url: params[:image], product_id: @product.id) if params[:image] != ""
+    @image = Image.new(url: params[:image])
 
+    if @product.save
       flash[:success]= "New Product Created"
-      redirect_to '/products'
+      if params[:image] !=""
+        @image = Image.new(url: params[:image], product_id: @product.id)
+      unless @image.save
+        flash[:warning] = "Image did not save"
+        render: "/images/new"
+      else
+        flash[:success] = "New Image Saved"
+      end
+
+      redirect_to "/products/#{@product.id}"
     else
       render :new
     end
@@ -62,12 +73,15 @@ class ProductsController < ApplicationController
   def update
     @product = Product.find_by(id: params[:id])
 
-    @product.update({name: params[:name], price: params[:price], description: params[:description]})
+    if @product.update({name: params[:name], price: params[:price], description: params[:description]})
 
-    Image.create(url: params[:image], product_id: @product.id) if params[:image] != ""
+      @image = Image.create(url: params[:image], product_id: @product.id) if params[:image] != ""
 
-    flash[:success] = "Producted Update!"
-    redirect_to "/products/#{@product.id}"
+      flash[:success] = "Producted Update!"
+      redirect_to "/products/#{@product.id}"
+    else
+      render :edit
+    end
 
   end
 
@@ -76,7 +90,7 @@ class ProductsController < ApplicationController
       @product.destroy
 
       flash[:warning] = "Item Gone!"
-      redirect_to "/products@bn"
+      redirect_to "/products"
   end
 
 

@@ -61,7 +61,7 @@
 
           <% end %>
           <li><%= link_to "Sign Out", "/users/sign_out", method: :delete if user_signed_in? %></li>
-          <li><span class="glyphicon glyphicon-shopping-cart"><%= link_to "Cart, (#{@cart_count})" "/carted_products" %></li>
+          <li><span class="glyphicon glyphicon-shopping-cart"><%= link_to "Cart, (#{@cart_count})", "/carted_products" %></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

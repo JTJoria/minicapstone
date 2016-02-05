@@ -12,7 +12,8 @@ class OrdersController < ApplicationController
     end
 
     order.calculate_totals
-
+    
+    session[:cart_count] = nil 
     flash[:success] = "Your order is complete"
     redirect_to "/orders/#{order.id}"
   end
